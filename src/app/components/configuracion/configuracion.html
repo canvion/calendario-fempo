@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>configuració</h2>
+
+  <form [formGroup]="configuracionForm">
+
+    <div class="campo">
+      <label>DATA D'INICI</label>
+      <input type="date" formControlName="dataInici">
+    </div>
+
+    <div class="campo">
+      <label>HORES TOTALS</label>
+      <input type="number" step="0.1" formControlName="horesTotals">
+      <div class="error" *ngIf="configuracionForm.get('horesTotals')?.invalid && configuracionForm.get('horesTotals')?.touched">
+        Introdueix un número vàlid
+      </div>
+      <p class="info">Per defecte: {{configuracionForm.get('horesTotals')?.value}} hores</p>
+    </div>
+
+    <div class="campo">
+      <label>HORES DIÀRIES</label>
+      <input type="number" step="0.1" formControlName="horesDiaries">
+      <div class="error" *ngIf="configuracionForm.get('horesDiaries')?.invalid && configuracionForm.get('horesDiaries')?.touched">
+        Introdueix un número vàlid entre 0.1 i 24
+      </div>
+      <p class="info">Per defecte: {{configuracionForm.get('horesDiaries')?.value}} hores/dia</p>
+    </div>
+
+    <div class="mensaje-fechas" *ngIf="dataFinal && configuracionForm.valid">
+      <p><strong>Període de pràctiques:</strong></p>
+      <p>Inici: {{getDataIniciFormatted()}}</p>
+      <p>Final previst: {{dataFinal}}</p>
+    </div>
+
+    <div class="resumen">
+      <div class="caja">
+        <h3>{{diesLectius}}</h3>
+        <p>DIES LECTIUS</p>
+      </div>
+      <div class="caja">
+        <h3>{{horesReals}}</h3>
+        <p>HORES REALS</p>
+      </div>
+    </div>
+
+  </form>
+</div>
