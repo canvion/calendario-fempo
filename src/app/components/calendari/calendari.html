@@ -1,0 +1,52 @@
+<div class="calendari-container">
+
+  <!-- Formulari de configuració -->
+  <div class="formulari-practiques">
+    <app-configuracion (configuracioCanviada)="onConfiguracioCanviada($event)"></app-configuracion>
+  </div>
+
+  <!-- Calendari anual -->
+  <div class="calendari-anys">
+    <h3>Calendari de pràctiques {{ anyActual }}</h3>
+
+    <div class="grid-mesos">
+      <div class="mes" *ngFor="let diesMes of mesos; let i = index">
+        <div class="mes-header">
+          <h4>{{ getNomMes(i) }}</h4>
+        </div>
+
+        <!-- Dies de la setmana -->
+        <div class="dies-setmana">
+          <div class="dia-setmana" *ngFor="let dia of diesSetmana">
+            {{ dia }}
+          </div>
+        </div>
+
+        <!-- Grid de dies del mes -->
+        <div class="grid-dies">
+          <div *ngFor="let dia of diesMes"
+               [className]="getClassesDia(dia)">
+            {{ dia.numero }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Llegenda -->
+    <div class="llegenda">
+      <div class="llegenda-item">
+        <span class="color-box dia-practiques"></span>
+        <span>Dies de pràctiques</span>
+      </div>
+      <div class="llegenda-item">
+        <span class="color-box festiu"></span>
+        <span>Festius</span>
+      </div>
+      <div class="llegenda-item">
+        <span class="color-box cap-setmana"></span>
+        <span>Caps de setmana</span>
+      </div>
+    </div>
+  </div>
+
+</div>
