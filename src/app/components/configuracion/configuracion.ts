@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +12,9 @@ import { Configuracion } from '../../core/models/configuracion.interface';
   templateUrl: './configuracion.html',
   styleUrls: ['./configuracion.css']
 })
+
 export class ConfiguracionComponent implements OnInit {
+  @Output() configuracioCanviada = new EventEmitter<any>();
   configuracionForm: FormGroup;
   dataFinal: string = '';
   diesLectius: number = 0;
@@ -70,6 +72,14 @@ export class ConfiguracionComponent implements OnInit {
       this.diesLectius = resultat.diesLectius;
       this.horesReals = resultat.horesReals;
       this.dataFinal = this.calendarioService.formatearFechaCatalan(resultat.dataFinal);
+
+      // ✅ AÑADIR ESTO: Emitir el evento
+      this.configuracioCanviada.emit({
+        dataInici: new Date(config.dataInici),
+        dataFinal: resultat.dataFinal,
+        horesTotals: config.horesTotals,
+        horesDiaries: config.horesDiaries
+      });
     } catch (error) {
       console.error('Error al calcular:', error);
     }
